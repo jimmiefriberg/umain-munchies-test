@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "../styles/globals.css";
 
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Umain Test Site",
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   initialScale: 1,
   minimumScale: 1,
   width: "device-width",

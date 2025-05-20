@@ -46,4 +46,8 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  .border-xs {
+    border-width: 0.6px;
+  }
 }
