@@ -9,3 +9,6 @@ export const ExternalRestaurantSchema = z.object({
   delivery_time_minutes: z.number(),
   price_range_id: z.string(),
 });
+
+export type RestaurantList = z.infer<typeof ExternalRestaurantSchema>[];
+export type Restaurant = z.infer<typeof ExternalRestaurantSchema>;

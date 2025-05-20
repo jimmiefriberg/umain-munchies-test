@@ -9,9 +9,7 @@ export const metadata: Metadata = {
 
 export const viewport = {
   initialScale: 1,
-  maximumScale: 1,
   minimumScale: 1,
-  userScalable: false,
   width: "device-width",
 };
 
@@ -38,8 +36,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      <body className={`${SFPro.variable} antialiased font-sans`}>
+    <html lang="en">
+      <body className={`${SFPro.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>

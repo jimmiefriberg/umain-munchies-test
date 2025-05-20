@@ -1,3 +1,4 @@
+import RestaurantGrid from "@/components/restaurants/RestaurantGrid";
 import { getRestaurants } from "@/lib/api";
 
 export default async function Home() {
@@ -6,6 +7,8 @@ export default async function Home() {
   console.log("Restaurants:", restaurants);
 
   return (
-    <div>{restaurants.length > 0 && JSON.stringify(restaurants, null, 2)}</div>
+    <div className="p-4">
+      <RestaurantGrid restaurants={restaurants} />
+    </div>
   );
 }
