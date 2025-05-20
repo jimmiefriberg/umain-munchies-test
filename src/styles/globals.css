@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+* {
+  @apply box-border;
+}
+
 @theme inline {
   --font-sans: var(--font-sfpro), sans-serif;
 
@@ -22,6 +26,7 @@
   --text-xl--line-height: 1.25;
   --text-2xl--letter-spacing: -0.03125rem;
   --text-2xl--line-height: 1.25;
+  --text-3xl: 2.5rem;
   --text-3xl--letter-spacing: -0.03125rem;
   --text-3xl--line-height: 1.25;
   --text-4xl--letter-spacing: -0.03125rem;

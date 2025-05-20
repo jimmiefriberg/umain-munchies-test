@@ -1,45 +1,22 @@
-import Category from "./Category";
+"use client";
 
-const categories = [
-  {
-    title: "Hamburger",
-    image: "/images/hamburger.png",
-  },
-  {
-    title: "Pizza",
-    image: "/images/pizza.png",
-  },
-  {
-    title: "Taco",
-    image: "/images/taco.png",
-  },
-  {
-    title: "Breakfast",
-    image: "/images/breakfast.png",
-  },
-  {
-    title: "Coffee",
-    image: "/images/coffee.png",
-  },
-  {
-    title: "Fries",
-    image: "/images/fries.png",
-  },
-  {
-    title: "Burrito",
-    image: "/images/burrito.png",
-  },
-];
+import { Category } from "@/lib/api/schema";
 
-export default function CategoryList() {
+import CategoryItem from "./CategoryItem";
+
+export default function CategoryList({
+  categories,
+}: {
+  categories: Category[];
+}) {
   return (
-    <div className="no-scrollbar overflow-x-scroll overflow-y-hidden">
-      <div className="flex gap-2.5">
+    <div className="">
+      <div className="no-scrollbar w-full overflow-x-scroll whitespace-nowrap">
         {categories.map((category) => (
-          <Category
-            key={category.title}
-            image={category.image}
-            title={category.title}
+          <CategoryItem
+            key={category.id}
+            image={category.image_url}
+            title={category.name}
           />
         ))}
       </div>

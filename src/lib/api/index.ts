@@ -1,7 +1,12 @@
 import axios from "axios";
 import z from "zod";
 
-import { ExternalRestaurantSchema, RestaurantList } from "./schema";
+import {
+  ExternalRestaurantSchema,
+  Restaurant,
+  Category,
+  ExternalCategorySchema,
+} from "./schema";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -24,7 +29,7 @@ externalApi.interceptors.request.use((config) => {
   return config;
 });
 
-const tempData = [
+const tempRestaurants = [
   {
     id: "79d66f8a-3170-4036-a466-09312c721239",
     name: "Waynes Coffee",
@@ -96,8 +101,8 @@ const tempData = [
   },
 ];
 
-export async function getRestaurants(): Promise<RestaurantList> {
-  return tempData as RestaurantList;
+export async function getRestaurants(): Promise<Restaurant[]> {
+  return tempRestaurants as Restaurant[];
 
   // TODO: Connect api again
   try {
@@ -114,6 +119,63 @@ export async function getRestaurants(): Promise<RestaurantList> {
     return parsedData;
   } catch (error) {
     console.log("Error fetching restaurants:", error);
+    // TODO: Returning an empty array for now. Might be worth throwing.
+    return [];
+  }
+}
+
+export async function getCategories(): Promise<Category[]> {
+  try {
+    return [
+      {
+        id: "e1d72f68-77d2-4d18-b323-878984b60e12",
+        name: "Hamburger",
+        image_url: "/images/hamburger.png",
+      },
+      {
+        id: "59c5e8f0-8255-45e4-9674-1602e4f32998",
+        name: "Pizza",
+        image_url: "/images/pizza.png",
+      },
+      {
+        id: "0c99583e-93c8-47c5-b407-08082f31ea24",
+        name: "Taco´s",
+        image_url: "/images/taco.png",
+      },
+      {
+        id: "5e0f48b8-24df-417a-950a-4f1efb658974",
+        name: "Coffee",
+        image_url: "/images/coffee.png",
+      },
+      {
+        id: "08c2755c-b4f4-4077-a034-25d44d6e125e",
+        name: "Burrito",
+        image_url: "/images/burrito.png",
+      },
+      {
+        id: "04c77716-ab0b-4bbf-afa3-fc67a35ca2e3",
+        name: "Fries",
+        image_url: "/images/fries.png",
+      },
+      {
+        id: "9dd2df70-98f9-4011-bf8d-4ac9de15ed78",
+        name: "Breakfast",
+        image_url: "/images/breakfast.png",
+      },
+    ] as Category[];
+    const response = await externalApi.get("/filter");
+    const categories = response.data.filters;
+
+    if (!categories) {
+      throw new Error("No categories found in the response");
+    }
+
+    // Validate the response data
+    const parsedData = parseIncomingData(categories, ExternalCategorySchema);
+
+    return parsedData;
+  } catch (error) {
+    console.log("Error fetching categories:", error);
     // TODO: Returning an empty array for now. Might be worth throwing.
     return [];
   }

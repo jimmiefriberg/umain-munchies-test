@@ -37,7 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${SFPro.variable} font-sans antialiased`}>
+      <body
+        className={`${SFPro.variable} min-h-screen w-screen overflow-x-hidden font-sans antialiased`}
+      >
         {children}
       </body>
     </html>
