@@ -1,1 +1,49 @@
 @import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-sfpro), sans-serif;
+
+  /* TODO: Update to OKLCH colours */
+  --color-off-white: #fafafa;
+  --color-green: #00703a;
+
+  --radius-card: 0.5rem;
+
+  /* ! Overwrite tailwind's default typography */
+  --text-xs--letter-spacing: -0.03125rem;
+  --text-xs--line-height: 1.25;
+  --text-sm--letter-spacing: -0.03125rem;
+  --text-sm--line-height: 1.25;
+  --text-base--letter-spacing: -0.03125rem;
+  --text-base--line-height: 1.25;
+  --text-lg--letter-spacing: -0.03125rem;
+  --text-lg--line-height: 1.25;
+  --text-xl--letter-spacing: -0.03125rem;
+  --text-xl--line-height: 1.25;
+  --text-2xl--letter-spacing: -0.03125rem;
+  --text-2xl--line-height: 1.25;
+  --text-3xl--letter-spacing: -0.03125rem;
+  --text-3xl--line-height: 1.25;
+  --text-4xl--letter-spacing: -0.03125rem;
+  --text-4xl--line-height: 1.25;
+  --text-5xl--letter-spacing: -0.03125rem;
+  --text-5xl--line-height: 1.25;
+  --text-6xl--letter-spacing: -0.03125rem;
+  --text-6xl--line-height: 1.25;
+  --text-7xl--letter-spacing: -0.03125rem;
+  --text-7xl--line-height: 1.25;
+  --text-8xl--letter-spacing: -0.03125rem;
+  --text-8xl--line-height: 1.25;
+  --text-9xl--letter-spacing: -0.03125rem;
+  --text-9xl--line-height: 1.25;
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
