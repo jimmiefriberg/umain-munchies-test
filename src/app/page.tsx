@@ -15,12 +15,12 @@ export default async function Home() {
   const priceRanges = await getPriceRanges(restaurants);
 
   return (
-    <div className="bg-off-white w-screen py-10 lg:h-screen lg:px-10 lg:pt-14 lg:pb-0">
-      <div className="mb-6 px-5 md:mb-8 xl:mb-12">
+    <div className="bg-off-white flex w-screen flex-col gap-6 py-10 md:gap-8 lg:min-h-screen lg:px-10 lg:pt-14 lg:pb-0 xl:gap-12">
+      <div className="px-5 lg:px-0">
         <Logo />
       </div>
 
-      <div className="relative flex flex-col gap-6 lg:flex-row lg:gap-5">
+      <div className="relative flex grow flex-col gap-6 lg:flex-row lg:gap-5">
         <Sidebar categories={categories} priceRanges={priceRanges} />
 
         <main className="flex min-w-0 grow flex-col gap-6 px-5 lg:px-0">

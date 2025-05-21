@@ -1,10 +1,9 @@
 "use client";
 
 import { Restaurant } from "@/lib/api/schema";
-import { clearFilters } from "@/lib/filter-store";
+import { clearFilters, useRestaurants } from "@/lib/filter-store";
 
 import RestaurantCard from "./RestaurantCard";
-import useRestaurants from "@/lib/use-restaurants";
 
 export default function RestaurantGrid({
   restaurants,

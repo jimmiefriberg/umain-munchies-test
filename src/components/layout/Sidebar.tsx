@@ -23,8 +23,8 @@ export default function Sidebar({
   }));
 
   return (
-    <aside className="border-xs flex flex-col rounded-t-lg border-black/10 px-5 lg:shrink-0 lg:basis-[max(15rem,_18vw)] lg:gap-8 lg:bg-white lg:p-6">
-      <h3 className="text-2xl">Filter</h3>
+    <aside className="border-xs flex flex-col rounded-t-lg border-transparent px-5 lg:shrink-0 lg:basis-[max(15rem,_18vw)] lg:gap-8 lg:border-black/10 lg:bg-white lg:p-6">
+      <h3 className="hidden text-2xl lg:block">Filter</h3>
 
       <FilterGroup
         filterKey="categories"
@@ -45,6 +45,7 @@ export default function Sidebar({
           { label: "1 hour+", value: "1" },
         ]}
         ButtonComponent={FilterButton}
+        className="flex"
       />
 
       <FilterGroup

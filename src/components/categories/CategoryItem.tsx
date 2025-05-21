@@ -20,8 +20,9 @@ export default function CategoryItem({
   return (
     <button
       className={cn(
-        "border-xs relative mr-2.5 inline-block h-20 w-40 overflow-hidden rounded-lg border-black/10 bg-white px-3 py-4 text-left last:mr-0",
-        isActive && "outline-green outline-2 -outline-offset-2",
+        "border-xs hover:outline-green/50 focus-visible:outline-green/50 relative mr-2.5 inline-flex h-20 w-40 cursor-pointer overflow-hidden rounded-lg border-black/10 bg-white px-3 py-4 text-left outline-2 -outline-offset-2 outline-transparent duration-120 last:mr-0",
+        isActive &&
+          "outline-green outline-2 hover:opacity-70 focus-visible:opacity-70",
       )}
       onClick={handleClick}
     >

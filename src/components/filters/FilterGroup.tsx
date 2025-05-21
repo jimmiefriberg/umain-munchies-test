@@ -1,6 +1,6 @@
-import { twMerge } from "tailwind-merge";
-
 import { FilterKeys, toggleFilter, useFilterStore } from "@/lib/filter-store";
+import { cn } from "@/lib/utils";
+
 import { FilterButtonProps } from "./FilterButton";
 
 export default function FilterGroup({
@@ -9,6 +9,7 @@ export default function FilterGroup({
   options,
   direction = "row",
   ButtonComponent,
+  className,
 }: {
   filterKey: FilterKeys;
   title: string;
@@ -18,6 +19,7 @@ export default function FilterGroup({
     value: string;
   }[];
   ButtonComponent: React.FC<FilterButtonProps>;
+  className?: string;
 }) {
   const selectedFilters = useFilterStore((state) => state[filterKey]);
 
@@ -26,10 +28,10 @@ export default function FilterGroup({
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={cn("hidden flex-col gap-4 lg:flex", className)}>
       <h4 className="text-xs font-semibold text-black/40 uppercase">{title}</h4>
       <div
-        className={twMerge(
+        className={cn(
           "flex flex-wrap gap-2",
           direction === "column" ? "flex-col items-start" : "flex-row",
         )}

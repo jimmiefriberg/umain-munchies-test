@@ -6,9 +6,10 @@
 [ ] Filter the delivery time
 [x] Filter with the categories
 [x] Clear filters functions
-[ ] Hover States
-[ ] Active states
-[ ] Animation
-[ ] Accessibility check
-[ ] Responsive check
-[ ] Tweak filter slider to go all way
+[x] Hover States
+[x] Active states
+[x] Transition
+[x] Accessibility check
+[x] Responsive check
+[ ] Tweak filter slider to go all way on mobile
+[ ] Create a larger than 1440px design?

@@ -50,19 +50,29 @@ export default function RestaurantCard({ data }: { data: Restaurant }) {
       >
         <h3 className="text-2xl">{data.name}</h3>
 
-        <CTAButton onClick={() => console.log("Click")} />
+        <CTAButton
+          onClick={() => console.log("Click")}
+          disabled={!data.is_open}
+        />
       </div>
     </div>
   );
 }
 
-function CTAButton({ onClick }: { onClick: () => void }) {
+function CTAButton({
+  onClick,
+  disabled = false,
+}: {
+  onClick: () => void;
+  disabled?: boolean;
+}) {
   return (
     <button
       onClick={onClick}
       aria-label="View Restaurant"
       type="button"
-      className="bg-green grid h-8 w-8 cursor-pointer place-items-center rounded-full"
+      disabled={disabled}
+      className="bg-green grid h-8 w-8 cursor-pointer place-items-center rounded-full duration-120 hover:opacity-70 focus-visible:opacity-70"
     >
       <svg
         className="h-2.5 w-3"
