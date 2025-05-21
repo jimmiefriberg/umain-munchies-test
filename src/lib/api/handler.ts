@@ -33,7 +33,7 @@ const externalApi = axios.create({
  * Get the restaurants and their open status from the external API.
  */
 export async function getFullRestaurantsData() {
-  let restaurants = await getRestaurants();
+  const restaurants = await getRestaurants();
 
   const openRequests = restaurants.map((restaurant) =>
     getOpenStatusForRestaurant(restaurant.id),
@@ -41,7 +41,7 @@ export async function getFullRestaurantsData() {
 
   const openStatuses = await Promise.all(openRequests);
 
-  restaurants = restaurants.map((restaurant) => {
+  const restaurantsWithOpenStatus = restaurants.map((restaurant) => {
     const openStatus = openStatuses.find(
       (status) => status.restaurant_id === restaurant.id,
     );
@@ -52,8 +52,7 @@ export async function getFullRestaurantsData() {
     };
   });
 
-  // TEMP
-  return restaurants as Restaurant[];
+  return restaurantsWithOpenStatus;
 }
 
 /**
