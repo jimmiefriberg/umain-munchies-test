@@ -21,7 +21,7 @@ if (!API_URL) {
 
 // Axios instance configuration
 const externalApi = axios.create({
-  baseURL: `${API_URL}/api`,
+  baseURL: `${API_URL}/apia`,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -29,6 +29,9 @@ const externalApi = axios.create({
   },
 });
 
+/**
+ * Get the restaurants and their open status from the external API.
+ */
 export async function getFullRestaurantsData() {
   let restaurants = await getRestaurants();
 
@@ -53,6 +56,9 @@ export async function getFullRestaurantsData() {
   return restaurants as Restaurant[];
 }
 
+/**
+ * Get the restaurants from the external API.
+ */
 export async function getRestaurants(): Promise<ExternalRestaurant[]> {
   try {
     const response = await externalApi.get("/restaurants");
@@ -71,6 +77,9 @@ export async function getRestaurants(): Promise<ExternalRestaurant[]> {
   }
 }
 
+/**
+ * Get the filter categories from the external API.
+ */
 export async function getCategories(): Promise<Category[]> {
   try {
     const response = await externalApi.get("/filter");
@@ -89,6 +98,9 @@ export async function getCategories(): Promise<Category[]> {
   }
 }
 
+/**
+ * Get the open status for a specific restaurant from the external API.
+ */
 export async function getOpenStatusForRestaurant(
   restaurantId: string,
 ): Promise<OpenStatus> {
@@ -112,6 +124,9 @@ export async function getOpenStatusForRestaurant(
   }
 }
 
+/**
+ * Get a price range for a specific price range ID from the external API.
+ */
 export async function getPriceRange(priceRangeId: string) {
   try {
     const response = await externalApi.get(`/price-range/${priceRangeId}`);
@@ -133,6 +148,9 @@ export async function getPriceRange(priceRangeId: string) {
   }
 }
 
+/**
+ * Get all price ranges for the given restaurants.
+ */
 export async function getPriceRanges(
   restaurants: Restaurant[],
 ): Promise<PriceRange[]> {
@@ -185,6 +203,9 @@ function parseIncomingData<TData>(data: TData, schema: z.ZodSchema<TData>) {
   return parsedData.data as TData;
 }
 
+/**
+ * Handle the errors from the API calls.
+ */
 function handleError<TData>(error: unknown, returnData: TData) {
   // ! This is a placeholder for error handling.
   // ! If this was a real project, I'd want to match the error to the API docs
@@ -192,6 +213,10 @@ function handleError<TData>(error: unknown, returnData: TData) {
   // ! return empty data.
 
   console.log("Error:", error);
+
+  if (axios.isAxiosError(error) && error.response?.status === 404) {
+    throw new Error("Not found");
+  }
 
   return returnData as TData;
 }
