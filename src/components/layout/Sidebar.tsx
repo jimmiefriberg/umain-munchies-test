@@ -1,6 +1,7 @@
 "use client";
 
 import { Category, PriceRange } from "@/lib/api/schema";
+import { deliveryTimes } from "@/lib/filter-store";
 
 import FilterGroup from "../filters/FilterGroup";
 import FilterButton from "../filters/FilterButton";
@@ -38,12 +39,7 @@ export default function Sidebar({
         filterKey="deliveryTimes"
         title="Delivery Time"
         direction="row"
-        options={[
-          { label: "0-10 min", value: "10" },
-          { label: "10-30 min", value: "30" },
-          { label: "30-60 min", value: "60" },
-          { label: "1 hour+", value: "1" },
-        ]}
+        options={deliveryTimes}
         ButtonComponent={FilterButton}
         className="flex"
       />
