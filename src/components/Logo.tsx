@@ -1,7 +1,6 @@
 export default function Logo() {
   return (
     <div className="w-[clamp(168px,_44vw,_274px)]">
-      <h1 className="sr-only">Munchies</h1>
       <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 274 40">
         <path
           fillRule="evenodd"

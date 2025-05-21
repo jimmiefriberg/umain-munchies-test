@@ -18,6 +18,7 @@ export default async function Home() {
     <div className="bg-off-white flex w-screen flex-col gap-6 py-10 md:gap-8 lg:min-h-screen lg:px-10 lg:pt-14 lg:pb-0 xl:gap-12">
       <div className="px-5 lg:px-0">
         <Logo />
+        <h1 className="sr-only">Munchies</h1>
       </div>
 
       <div className="relative flex grow flex-col gap-6 lg:flex-row lg:gap-5">
