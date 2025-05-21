@@ -24,3 +24,11 @@ export function toggleFilter(key: FilterKeys, filter: string) {
     return { [key]: updateFilters };
   });
 }
+
+export function clearFilters() {
+  useFilterStore.setState({
+    categories: [],
+    deliveryTimes: [],
+    priceRanges: [],
+  });
+}

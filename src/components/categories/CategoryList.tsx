@@ -1,6 +1,7 @@
 "use client";
 
 import { Category } from "@/lib/api/schema";
+import { useFilterStore } from "@/lib/filter-store";
 
 import CategoryItem from "./CategoryItem";
 
@@ -9,6 +10,8 @@ export default function CategoryList({
 }: {
   categories: Category[];
 }) {
+  const activeCategories = useFilterStore((state) => state.categories);
+
   return (
     <div className="">
       <div className="no-scrollbar w-full overflow-x-scroll whitespace-nowrap">
@@ -17,6 +20,8 @@ export default function CategoryList({
             key={category.id}
             image={category.image_url}
             title={category.name}
+            id={category.id}
+            isActive={activeCategories.includes(category.id)}
           />
         ))}
       </div>
