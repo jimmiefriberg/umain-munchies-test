@@ -176,7 +176,10 @@ function parseIncomingData<TData>(data: TData, schema: z.ZodSchema<TData>) {
       throw new Error("Response doesn't match API Docs", parsedData.error);
     }
 
-    // TODO: Handle gracefully in production.
+    // ! This is a placeholder and tied in with the error handling
+    // ! function below. In a real project we'd want to implement
+    // ! some form of error handling here.
+    return data as TData;
   }
 
   return parsedData.data as TData;
@@ -189,9 +192,6 @@ function handleError<TData>(error: unknown, returnData: TData) {
   // ! return empty data.
 
   console.log("Error:", error);
-
-  // TODO: Should update to match some form off fallback. This should be
-  // TODO: the same across the entire app but requires a design.
 
   return returnData as TData;
 }

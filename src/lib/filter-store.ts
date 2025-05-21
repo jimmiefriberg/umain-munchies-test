@@ -27,7 +27,7 @@ export const FILTER_KEYS = {
 export type FilterKeys = (typeof FILTER_KEYS)[keyof typeof FILTER_KEYS];
 
 // Filter Store
-interface FilterStore {
+export interface FilterStore {
   [FILTER_KEYS.CATEGORIES]: string[];
   [FILTER_KEYS.DELIVERY_TIMES]: string[];
   [FILTER_KEYS.PRICE_RANGES]: string[];
@@ -63,11 +63,19 @@ export function clearFilters() {
 }
 
 /**
- * Custom hook to view restaurants based on the selected filters.
+ * Create a function that filters the restaurants based on the selected filters.
  */
-export function useRestaurants(restaurants: Restaurant[]) {
-  const { categories, deliveryTimes, priceRanges } = useFilterStore();
-
+export function filterRestaurants({
+  restaurants,
+  categories,
+  deliveryTimes,
+  priceRanges,
+}: {
+  restaurants: Restaurant[];
+  categories: string[];
+  deliveryTimes: string[];
+  priceRanges: string[];
+}) {
   const filteredRestaurants = restaurants.filter((restaurant) => {
     // Check if category matches
     const categoryMatch =
@@ -92,6 +100,19 @@ export function useRestaurants(restaurants: Restaurant[]) {
   });
 
   return filteredRestaurants;
+}
+
+/**
+ * Custom hook for the filtered restaurants.
+ */
+export function useRestaurants(restaurants: Restaurant[]) {
+  const { categories, deliveryTimes, priceRanges } = useFilterStore();
+  return filterRestaurants({
+    restaurants,
+    categories,
+    deliveryTimes,
+    priceRanges,
+  });
 }
 
 /**
