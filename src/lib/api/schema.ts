@@ -26,7 +26,6 @@ export const ExternalOpenStatusSchema = z.object({
   is_open: z.boolean(),
 });
 
-// TODO: Update to be the combined schema
 export type ExternalRestaurant = z.infer<typeof ExternalRestaurantSchema>;
 export type Restaurant = ExternalRestaurant & {
   is_open: boolean;

@@ -2,25 +2,41 @@ import { create } from "zustand";
 
 import { Restaurant } from "./api/schema";
 
-interface FilterStore {
-  categories: string[];
-  deliveryTimes: string[];
-  priceRanges: string[];
-}
-
-export type FilterKeys = "categories" | "deliveryTimes" | "priceRanges";
+// Delivery Times Options
+export const DELIVERY_TIMES = {
+  FASTEST: "0-10",
+  FAST: "10-30",
+  MEDIUM: "30-60",
+  SLOW: "60",
+} as const;
 
 export const deliveryTimes = [
-  { label: "0-10 min", value: "0-10" },
-  { label: "10-30 min", value: "10-30" },
-  { label: "30-60 min", value: "30-60" },
-  { label: "1 hour+", value: "60" },
+  { label: "0-10 min", value: DELIVERY_TIMES.FASTEST },
+  { label: "10-30 min", value: DELIVERY_TIMES.FAST },
+  { label: "30-60 min", value: DELIVERY_TIMES.MEDIUM },
+  { label: "1 hour+", value: DELIVERY_TIMES.SLOW },
 ];
 
+// Filter Store Keys
+export const FILTER_KEYS = {
+  CATEGORIES: "categories",
+  DELIVERY_TIMES: "deliveryTimes",
+  PRICE_RANGES: "priceRanges",
+} as const;
+
+export type FilterKeys = (typeof FILTER_KEYS)[keyof typeof FILTER_KEYS];
+
+// Filter Store
+interface FilterStore {
+  [FILTER_KEYS.CATEGORIES]: string[];
+  [FILTER_KEYS.DELIVERY_TIMES]: string[];
+  [FILTER_KEYS.PRICE_RANGES]: string[];
+}
+
 export const useFilterStore = create<FilterStore>()(() => ({
-  categories: [],
-  deliveryTimes: [],
-  priceRanges: [],
+  [FILTER_KEYS.CATEGORIES]: [],
+  [FILTER_KEYS.DELIVERY_TIMES]: [],
+  [FILTER_KEYS.PRICE_RANGES]: [],
 }));
 
 /**
@@ -40,9 +56,9 @@ export function toggleFilter(key: FilterKeys, filter: string) {
  */
 export function clearFilters() {
   useFilterStore.setState({
-    categories: [],
-    deliveryTimes: [],
-    priceRanges: [],
+    [FILTER_KEYS.CATEGORIES]: [],
+    [FILTER_KEYS.DELIVERY_TIMES]: [],
+    [FILTER_KEYS.PRICE_RANGES]: [],
   });
 }
 
@@ -78,6 +94,9 @@ export function useRestaurants(restaurants: Restaurant[]) {
   return filteredRestaurants;
 }
 
+/**
+ * Check if a filter is empty.
+ */
 function isFilterEmpty(filter: string[]): boolean {
   return filter.length === 0;
 }

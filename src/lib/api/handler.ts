@@ -29,12 +29,6 @@ const externalApi = axios.create({
   },
 });
 
-externalApi.interceptors.request.use((config) => {
-  console.log("Sending request to:", config.url);
-
-  return config;
-});
-
 export async function getFullRestaurantsData() {
   let restaurants = await getRestaurants();
 
@@ -118,7 +112,7 @@ export async function getOpenStatusForRestaurant(
   }
 }
 
-export async function getPriceRage(priceRangeId: string) {
+export async function getPriceRange(priceRangeId: string) {
   try {
     const response = await externalApi.get(`/price-range/${priceRangeId}`);
     const data = response.data;
@@ -149,7 +143,7 @@ export async function getPriceRanges(
       priceRangeIds.add(restaurant.price_range_id);
     }
 
-    const requests = Array.from(priceRangeIds).map(getPriceRage);
+    const requests = Array.from(priceRangeIds).map(getPriceRange);
     const data: PriceRange[] = await Promise.all(requests);
 
     const priceRanges = data
@@ -163,6 +157,9 @@ export async function getPriceRanges(
 }
 
 // Helper functions
+/**
+ * Perse the incoming data to see that it matches the API Docs.
+ */
 function parseIncomingData<TData>(data: TData, schema: z.ZodSchema<TData>) {
   let parsedData;
 
@@ -176,7 +173,7 @@ function parseIncomingData<TData>(data: TData, schema: z.ZodSchema<TData>) {
     console.error("Validation error:", parsedData.error);
 
     if (process.env.NODE_ENV === "development") {
-      throw new Error("External API response doesn't match API Docs");
+      throw new Error("Response doesn't match API Docs", parsedData.error);
     }
 
     // TODO: Handle gracefully in production.

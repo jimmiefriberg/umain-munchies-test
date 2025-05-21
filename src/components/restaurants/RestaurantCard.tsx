@@ -1,10 +1,13 @@
 import Image from "next/image";
 
 import { Restaurant } from "@/lib/api/schema";
+import { cn } from "@/lib/utils";
 
 import OpenChip from "./OpenChip";
 import DeliveryChip from "./DeliveryChip";
-import { cn } from "@/lib/utils";
+
+// Static Copy
+const NOT_OPEN_TEXT = "Opens tomorrow at 12 pm";
 
 export default function RestaurantCard({ data }: { data: Restaurant }) {
   return (
@@ -23,7 +26,7 @@ export default function RestaurantCard({ data }: { data: Restaurant }) {
 
       {!data.is_open && (
         <div className="border-xs absolute top-1/2 left-1/2 -translate-1/2 rounded-lg border-black/10 px-3 py-2 text-xs leading-none">
-          <span>Opens tomorrow at 12 pm</span>
+          <span>{NOT_OPEN_TEXT}</span>
         </div>
       )}
 

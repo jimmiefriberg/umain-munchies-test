@@ -5,12 +5,11 @@
 }
 
 @theme inline {
+  /* Theming */
   --font-sans: var(--font-sfpro), sans-serif;
 
-  /* TODO: Update to OKLCH colours */
-  --color-off-white: #fafafa;
-  --color-green: #00703a;
-
+  --color-off-white: oklch(0.9851 0 0);
+  --color-green: oklch(0.478 0.122475 153.2349);
   --radius-card: 0.5rem;
 
   /* ! Overwrite tailwind's default typography */

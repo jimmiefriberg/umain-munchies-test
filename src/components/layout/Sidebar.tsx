@@ -1,7 +1,7 @@
 "use client";
 
 import { Category, PriceRange } from "@/lib/api/schema";
-import { deliveryTimes } from "@/lib/filter-store";
+import { deliveryTimes, FILTER_KEYS } from "@/lib/filter-store";
 
 import FilterGroup from "../filters/FilterGroup";
 import FilterButton from "../filters/FilterButton";
@@ -28,7 +28,7 @@ export default function Sidebar({
       <h3 className="hidden text-2xl lg:block">Filter</h3>
 
       <FilterGroup
-        filterKey="categories"
+        filterKey={FILTER_KEYS.CATEGORIES}
         title="Food Category"
         direction="column"
         options={categoryOptions}
@@ -36,7 +36,7 @@ export default function Sidebar({
       />
 
       <FilterGroup
-        filterKey="deliveryTimes"
+        filterKey={FILTER_KEYS.DELIVERY_TIMES}
         title="Delivery Time"
         direction="row"
         options={deliveryTimes}
@@ -45,7 +45,7 @@ export default function Sidebar({
       />
 
       <FilterGroup
-        filterKey="priceRanges"
+        filterKey={FILTER_KEYS.PRICE_RANGES}
         title="Price Range"
         direction="row"
         options={priceRangeOptions}
