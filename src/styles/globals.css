@@ -40,6 +40,17 @@
   --text-8xl--line-height: 1.25;
   --text-9xl--letter-spacing: -0.03125rem;
   --text-9xl--line-height: 1.25;
+
+  --animate-wiggle: wiggle 1200ms ease-in-out infinite;
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(0.25rem);
+    }
+  }
 }
 
 @layer utilities {
@@ -53,5 +64,28 @@
 
   .border-xs {
     border-width: 0.6px;
+  }
+}
+
+.category-slider::before {
+  margin-right: 1.25rem;
+}
+
+.category-slider::after {
+  margin-left: 1.25rem;
+}
+
+.category-slider::before,
+.category-slider::after {
+  content: "";
+  display: inline-block;
+}
+
+@media screen and (min-width: theme(--breakpoint-lg)) {
+  .category-slider::before,
+  .category-slider::after {
+    content: none;
+    margin-left: 0;
+    margin-right: 0;
   }
 }

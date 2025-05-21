@@ -23,9 +23,9 @@ export default async function Home() {
       <div className="relative flex grow flex-col gap-6 lg:flex-row lg:gap-5">
         <Sidebar categories={categories} priceRanges={priceRanges} />
 
-        <main className="flex min-w-0 grow flex-col gap-6 px-5 lg:px-0">
+        <main className="flex min-w-0 grow flex-col gap-6">
           <CategoryList categories={categories} />
-          <section className="@container w-full">
+          <section className="@container w-full px-5 lg:px-0">
             <h2 className="mb-5 text-xl md:text-2xl xl:text-3xl">
               Restaurants
             </h2>

@@ -13,18 +13,16 @@ export default function CategoryList({
   const activeCategories = useFilterStore((state) => state.categories);
 
   return (
-    <div className="">
-      <div className="no-scrollbar w-full overflow-x-scroll whitespace-nowrap">
-        {categories.map((category) => (
-          <CategoryItem
-            key={category.id}
-            image={category.image_url}
-            title={category.name}
-            id={category.id}
-            isActive={activeCategories.includes(category.id)}
-          />
-        ))}
-      </div>
+    <div className="no-scrollbar category-slider w-full overflow-x-scroll whitespace-nowrap">
+      {categories.map((category) => (
+        <CategoryItem
+          key={category.id}
+          image={category.image_url}
+          title={category.name}
+          id={category.id}
+          isActive={activeCategories.includes(category.id)}
+        />
+      ))}
     </div>
   );
 }

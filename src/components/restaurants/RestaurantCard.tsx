@@ -12,8 +12,14 @@ const NOT_OPEN_TEXT = "Opens tomorrow at 12 pm";
 export default function RestaurantCard({ data }: { data: Restaurant }) {
   return (
     <div
+      tabIndex={0}
+      role="button"
+      onClick={() => console.log("Click")}
+      aria-disabled={!data.is_open}
       className={cn(
-        "relative flex h-[202px] flex-col justify-between overflow-hidden rounded-lg border border-black/10 bg-white p-4",
+        "group relative flex h-[202px] flex-col justify-between overflow-hidden rounded-lg border border-black/10 bg-white p-4 outline-2 -outline-offset-1 outline-transparent",
+        data.is_open &&
+          "hover:outline-green/50 focus-visible:outline-green/50 cursor-pointer duration-120",
       )}
     >
       <div className="flex gap-2.5">
@@ -53,29 +59,19 @@ export default function RestaurantCard({ data }: { data: Restaurant }) {
       >
         <h3 className="text-2xl">{data.name}</h3>
 
-        <CTAButton
-          onClick={() => console.log("Click")}
-          disabled={!data.is_open}
-        />
+        <Arrow disabled={!data.is_open} />
       </div>
     </div>
   );
 }
 
-function CTAButton({
-  onClick,
-  disabled = false,
-}: {
-  onClick: () => void;
-  disabled?: boolean;
-}) {
+function Arrow({ disabled = false }: { disabled?: boolean }) {
   return (
-    <button
-      onClick={onClick}
-      aria-label="View Restaurant"
-      type="button"
-      disabled={disabled}
-      className="bg-green grid h-8 w-8 cursor-pointer place-items-center rounded-full duration-120 hover:opacity-70 focus-visible:opacity-70"
+    <div
+      className={cn(
+        "bg-green grid h-8 w-8 place-items-center rounded-full duration-120",
+        !disabled && "group-hover:animate-wiggle",
+      )}
     >
       <svg
         className="h-2.5 w-3"
@@ -88,6 +84,6 @@ function CTAButton({
           fill="#fff"
         />
       </svg>
-    </button>
+    </div>
   );
 }
