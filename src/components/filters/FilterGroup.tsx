@@ -28,7 +28,7 @@ export default function FilterGroup({
   }
 
   return (
-    <div className={cn("hidden flex-col gap-4 lg:flex", className)}>
+    <div className={cn("hidden flex-col gap-2.5 lg:flex lg:gap-4", className)}>
       <h4 className="text-xs font-semibold text-black/40 uppercase">{title}</h4>
       <div
         className={cn(

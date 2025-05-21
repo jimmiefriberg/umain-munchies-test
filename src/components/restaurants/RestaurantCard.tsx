@@ -10,12 +10,16 @@ import DeliveryChip from "./DeliveryChip";
 const NOT_OPEN_TEXT = "Opens tomorrow at 12 pm";
 
 export default function RestaurantCard({ data }: { data: Restaurant }) {
+  function handleClick() {
+    // Placeholder function for the button click
+    console.log(`Clicked on ${data.name}`);
+  }
+
   return (
-    <div
-      tabIndex={0}
-      role="button"
-      onClick={() => console.log("Click")}
-      aria-disabled={!data.is_open}
+    <button
+      type="button"
+      onClick={handleClick}
+      disabled={!data.is_open}
       className={cn(
         "group relative flex h-[202px] flex-col justify-between overflow-hidden rounded-lg border border-black/10 bg-white p-4 outline-2 -outline-offset-1 outline-transparent",
         data.is_open &&
@@ -61,7 +65,7 @@ export default function RestaurantCard({ data }: { data: Restaurant }) {
 
         <Arrow disabled={!data.is_open} />
       </div>
-    </div>
+    </button>
   );
 }
 

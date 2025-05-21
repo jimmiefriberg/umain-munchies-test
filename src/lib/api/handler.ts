@@ -21,7 +21,7 @@ if (!API_URL) {
 
 // Axios instance configuration
 const externalApi = axios.create({
-  baseURL: `${API_URL}/apia`,
+  baseURL: `${API_URL}/api`,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
