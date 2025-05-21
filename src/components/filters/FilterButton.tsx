@@ -19,7 +19,7 @@ export default function FilterButton({
       onClick={onClick}
       type="button"
       className={cn(
-        "border-xs rounded-lg border-black/10 px-3 py-2 text-xs leading-none",
+        "border-xs cursor-pointer rounded-lg border-black/10 px-3 py-2 text-xs leading-none",
         isActive && "bg-green text-white",
         className,
       )}

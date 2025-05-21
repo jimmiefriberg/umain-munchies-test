@@ -4,16 +4,35 @@ import { Restaurant } from "@/lib/api/schema";
 
 import OpenChip from "./OpenChip";
 import DeliveryChip from "./DeliveryChip";
+import { cn } from "@/lib/utils";
 
 export default function RestaurantCard({ data }: { data: Restaurant }) {
   return (
-    <div className="relative flex h-[202px] flex-col justify-between overflow-hidden rounded-lg border border-black/10 bg-white p-4">
+    <div
+      className={cn(
+        "relative flex h-[202px] flex-col justify-between overflow-hidden rounded-lg border border-black/10 bg-white p-4",
+      )}
+    >
       <div className="flex gap-2.5">
-        <OpenChip isOpen={true} />
-        <DeliveryChip deliveryTime={data.delivery_time_minutes} />
+        <OpenChip isOpen={data.is_open} />
+
+        {data.is_open && (
+          <DeliveryChip deliveryTime={data.delivery_time_minutes} />
+        )}
       </div>
 
-      <div className="absolute top-0 right-0 translate-x-[30px] -translate-y-[30px]">
+      {!data.is_open && (
+        <div className="border-xs absolute top-1/2 left-1/2 -translate-1/2 rounded-lg border-black/10 px-3 py-2 text-xs leading-none">
+          <span>Opens tomorrow at 12 pm</span>
+        </div>
+      )}
+
+      <div
+        className={cn(
+          "absolute top-0 right-0 translate-x-[30px] -translate-y-[30px]",
+          !data.is_open && "opacity-20",
+        )}
+      >
         <Image
           src={data.image_url}
           alt={data.name}
@@ -23,7 +42,12 @@ export default function RestaurantCard({ data }: { data: Restaurant }) {
         />
       </div>
 
-      <div className="flex items-end justify-between gap-3">
+      <div
+        className={cn(
+          "flex items-end justify-between gap-3",
+          !data.is_open && "opacity-20",
+        )}
+      >
         <h3 className="text-2xl">{data.name}</h3>
 
         <CTAButton onClick={() => console.log("Click")} />
@@ -38,7 +62,7 @@ function CTAButton({ onClick }: { onClick: () => void }) {
       onClick={onClick}
       aria-label="View Restaurant"
       type="button"
-      className="bg-green grid h-8 w-8 place-items-center rounded-full"
+      className="bg-green grid h-8 w-8 cursor-pointer place-items-center rounded-full"
     >
       <svg
         className="h-2.5 w-3"

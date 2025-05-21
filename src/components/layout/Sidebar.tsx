@@ -1,14 +1,25 @@
 "use client";
 
-import { Category } from "@/lib/api/schema";
+import { Category, PriceRange } from "@/lib/api/schema";
 
 import FilterGroup from "../filters/FilterGroup";
 import FilterButton from "../filters/FilterButton";
 
-export default function Sidebar({ categories }: { categories: Category[] }) {
+export default function Sidebar({
+  categories,
+  priceRanges,
+}: {
+  categories: Category[];
+  priceRanges: PriceRange[];
+}) {
   const categoryOptions = categories.map((category) => ({
     label: category.name,
     value: category.id,
+  }));
+
+  const priceRangeOptions = priceRanges.map((priceRange) => ({
+    label: priceRange.range,
+    value: priceRange.id,
   }));
 
   return (
@@ -40,12 +51,7 @@ export default function Sidebar({ categories }: { categories: Category[] }) {
         filterKey="priceRanges"
         title="Price Range"
         direction="row"
-        options={[
-          { label: "$", value: "1" },
-          { label: "$$", value: "2" },
-          { label: "$$$", value: "3" },
-          { label: "$$$$", value: "4" },
-        ]}
+        options={priceRangeOptions}
         ButtonComponent={(props) => (
           <FilterButton {...props} className="px-2" />
         )}

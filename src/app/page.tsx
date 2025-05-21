@@ -1,4 +1,8 @@
-import { getCategories, getRestaurants } from "@/lib/api";
+import {
+  getCategories,
+  getFullRestaurantsData,
+  getPriceRanges,
+} from "@/lib/api/handler";
 
 import CategoryList from "@/components/categories/CategoryList";
 import Sidebar from "@/components/layout/Sidebar";
@@ -6,9 +10,9 @@ import Logo from "@/components/Logo";
 import RestaurantGrid from "@/components/restaurants/RestaurantGrid";
 
 export default async function Home() {
-  // TODO: Replace with function that fetches all data from the API
-  const restaurants = await getRestaurants();
+  const restaurants = await getFullRestaurantsData();
   const categories = await getCategories();
+  const priceRanges = await getPriceRanges(restaurants);
 
   return (
     <div className="bg-off-white w-screen py-10 lg:h-screen lg:px-10 lg:pt-14 lg:pb-0">
@@ -17,7 +21,7 @@ export default async function Home() {
       </div>
 
       <div className="relative flex flex-col gap-6 lg:flex-row lg:gap-5">
-        <Sidebar categories={categories} />
+        <Sidebar categories={categories} priceRanges={priceRanges} />
 
         <main className="flex min-w-0 grow flex-col gap-6 px-5 lg:px-0">
           <CategoryList categories={categories} />

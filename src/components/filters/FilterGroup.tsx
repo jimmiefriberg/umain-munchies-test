@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 
-import { FilterKeys, toggleFilter } from "@/lib/filter-store";
+import { FilterKeys, toggleFilter, useFilterStore } from "@/lib/filter-store";
 import { FilterButtonProps } from "./FilterButton";
 
 export default function FilterGroup({
@@ -19,6 +19,8 @@ export default function FilterGroup({
   }[];
   ButtonComponent: React.FC<FilterButtonProps>;
 }) {
+  const selectedFilters = useFilterStore((state) => state[filterKey]);
+
   function handleFilterClick(value: string) {
     toggleFilter(filterKey, value);
   }
@@ -37,7 +39,7 @@ export default function FilterGroup({
             key={option.value}
             onClick={() => handleFilterClick(option.value)}
             option={option}
-            isActive={false} // Replace with actual active state logic
+            isActive={selectedFilters.includes(option.value)}
           />
         ))}
       </div>

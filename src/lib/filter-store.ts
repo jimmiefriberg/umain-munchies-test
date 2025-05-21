@@ -14,6 +14,8 @@ export const useFilterStore = create<FilterStore>()(() => ({
   priceRanges: [],
 }));
 
+useFilterStore.subscribe(console.log);
+
 export function toggleFilter(key: FilterKeys, filter: string) {
   useFilterStore.setState((state) => {
     const updateFilters = state[key].includes(filter)

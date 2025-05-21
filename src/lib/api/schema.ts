@@ -22,10 +22,15 @@ export const ExternalPriceRangeSchema = z.object({
 });
 
 export const ExternalOpenStatusSchema = z.object({
-  id: z.string(),
+  restaurant_id: z.string(),
   is_open: z.boolean(),
 });
 
 // TODO: Update to be the combined schema
-export type Restaurant = z.infer<typeof ExternalRestaurantSchema>;
+export type ExternalRestaurant = z.infer<typeof ExternalRestaurantSchema>;
+export type Restaurant = ExternalRestaurant & {
+  is_open: boolean;
+};
 export type Category = z.infer<typeof ExternalCategorySchema>;
+export type PriceRange = z.infer<typeof ExternalPriceRangeSchema>;
+export type OpenStatus = z.infer<typeof ExternalOpenStatusSchema>;
