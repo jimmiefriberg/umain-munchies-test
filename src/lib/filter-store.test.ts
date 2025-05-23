@@ -67,6 +67,11 @@ describe("Filter Store", () => {
     clearFilters();
   });
 
+  afterAll(() => {
+    jest.resetModules();
+    jest.clearAllMocks();
+  });
+
   // Test initial state
   describe("Initial State", () => {
     it("should initialize with empty filters", () => {

@@ -20,7 +20,7 @@ if (!API_URL) {
 }
 
 // Axios instance configuration
-const externalApi = axios.create({
+export const externalApi = axios.create({
   baseURL: `${API_URL}/api`,
   timeout: 10000,
   headers: {
