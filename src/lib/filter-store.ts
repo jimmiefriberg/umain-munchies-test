@@ -63,7 +63,7 @@ export function clearFilters() {
 }
 
 /**
- * Create a function that filters the restaurants based on the selected filters.
+ * Filters the restaurants based on the selected filters.
  */
 export function filterRestaurants({
   restaurants,
