@@ -35,7 +35,7 @@ export default function RestaurantCard({ data }: { data: Restaurant }) {
       </div>
 
       {!data.is_open && (
-        <div className="border-xs absolute top-1/2 left-1/2 -translate-1/2 rounded-lg border-black/10 px-3 py-2 text-xs leading-none">
+        <div className="border-xs bg-off-white absolute top-1/2 left-1/2 -translate-1/2 rounded-lg border-black/10 px-3 py-2 text-xs leading-none">
           <span>{NOT_OPEN_TEXT}</span>
         </div>
       )}

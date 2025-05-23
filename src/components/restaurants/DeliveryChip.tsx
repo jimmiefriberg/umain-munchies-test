@@ -7,12 +7,15 @@ export default function DeliveryChip({
 }) {
   return (
     <Chip>
-      <span className="px-1">{fixDeliveryTime(deliveryTime)}</span>
+      <span className="px-1">{convertTimeToReadable(deliveryTime)}</span>
     </Chip>
   );
 }
 
-function fixDeliveryTime(estimatedDeliveryTime: number): string {
+/**
+ * Converts the estimated delivery time exceeding 60 min to hours.
+ */
+function convertTimeToReadable(estimatedDeliveryTime: number): string {
   let suffix = "min";
   let time = estimatedDeliveryTime;
 
