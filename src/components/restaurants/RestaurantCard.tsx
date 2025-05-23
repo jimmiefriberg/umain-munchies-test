@@ -21,7 +21,7 @@ export default function RestaurantCard({ data }: { data: Restaurant }) {
       onClick={handleClick}
       disabled={!data.is_open}
       className={cn(
-        "group relative flex h-[202px] flex-col justify-between overflow-hidden rounded-lg border border-black/10 bg-white p-4 outline-2 -outline-offset-1 outline-transparent",
+        "group border-xs relative flex h-[202px] flex-col justify-between overflow-hidden rounded-lg border-black/10 bg-white p-4 outline-2 -outline-offset-1 outline-transparent",
         data.is_open &&
           "hover:outline-green/50 focus-visible:outline-green/50 cursor-pointer duration-120",
       )}
