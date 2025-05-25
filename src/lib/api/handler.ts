@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import z from "zod";
 
 import {
@@ -64,7 +64,7 @@ export async function getRestaurants(): Promise<ExternalRestaurant[]> {
     const restaurants = response.data.restaurants;
 
     if (!restaurants) {
-      throw new Error("No restaurants found in the response");
+      throw new ExternalApiError("No restaurants found in the response");
     }
 
     // Validate the response data
@@ -85,7 +85,7 @@ export async function getCategories(): Promise<Category[]> {
     const categories = response.data.filters;
 
     if (!categories) {
-      throw new Error("No categories found in the response");
+      throw new ExternalApiError("No categories found in the response");
     }
 
     // Validate the response data
@@ -108,7 +108,7 @@ export async function getOpenStatusForRestaurant(
     const data = response.data;
 
     if (!data) {
-      throw new Error("No opening time found in the response");
+      throw new ExternalApiError("No opening time found in the response");
     }
 
     // Validate the response data
@@ -132,7 +132,7 @@ export async function getPriceRange(priceRangeId: string) {
     const data = response.data;
 
     if (!data) {
-      throw new Error("No price range found in the response");
+      throw new ExternalApiError("No price range found in the response");
     }
 
     // Validate the response data
@@ -187,10 +187,8 @@ function parseIncomingData<TData>(data: TData, schema: z.ZodSchema<TData>) {
   }
 
   if (!parsedData.success) {
-    console.error("Validation error:", parsedData.error);
-
     if (process.env.NODE_ENV === "development") {
-      throw new Error("Response doesn't match API Docs", parsedData.error);
+      throw new ParseError("Response doesn't match API Docs", parsedData.error);
     }
 
     // ! This is a placeholder and tied in with the error handling
@@ -203,18 +201,59 @@ function parseIncomingData<TData>(data: TData, schema: z.ZodSchema<TData>) {
 }
 
 /**
+ * Custom error class for parse errors.
+ */
+class ParseError extends Error {
+  constructor(
+    message: string,
+    public cause: z.ZodError,
+  ) {
+    super(message);
+    this.name = "ParseError";
+  }
+}
+
+/**
+ * Custom error class for external API errors.
+ */
+class ExternalApiError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ExternalApiError";
+  }
+}
+
+/**
  * Handle the errors from the API calls.
  */
-function handleError<TData>(error: unknown, returnData: TData) {
+function handleError<TData>(
+  error: AxiosError | ParseError | unknown,
+  returnData: TData,
+) {
   // ! This is a placeholder for error handling.
   // ! If this was a real project, I'd want to match the error to the API docs
   // ! and handle them accordingly. For now, I'll just log the error and
   // ! return empty data.
 
-  console.log("Error:", error);
+  if (error instanceof ParseError) {
+    console.error("Parse error:", error.message);
+    throw new Error(
+      "Response doesn't match API Docs. Please check the API response.",
+    );
+  }
 
   if (axios.isAxiosError(error) && error.response?.status === 404) {
+    // This should be updaed to handle more errors
+    // Could be combimed with the ExternalApiError below
+    console.error("API endpoint not found:", error.message);
     throw new Error("Not found");
+  }
+
+  if (error instanceof ExternalApiError) {
+    console.error("External API error:", error.message);
+    // Handle specific external API errors here
+  } else {
+    console.error("Unexpected error:", error);
   }
 
   return returnData as TData;
