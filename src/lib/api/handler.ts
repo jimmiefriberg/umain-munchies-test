@@ -64,7 +64,7 @@ export async function getRestaurants(): Promise<ExternalRestaurant[]> {
     const restaurants = response.data.restaurants;
 
     if (!restaurants) {
-      throw new ExternalApiError("No restaurants found in the response");
+      throw new CustomApiError("No restaurants found in the response");
     }
 
     // Validate the response data
@@ -85,7 +85,7 @@ export async function getCategories(): Promise<Category[]> {
     const categories = response.data.filters;
 
     if (!categories) {
-      throw new ExternalApiError("No categories found in the response");
+      throw new CustomApiError("No categories found in the response");
     }
 
     // Validate the response data
@@ -108,7 +108,7 @@ export async function getOpenStatusForRestaurant(
     const data = response.data;
 
     if (!data) {
-      throw new ExternalApiError("No opening time found in the response");
+      throw new CustomApiError("No opening time found in the response");
     }
 
     // Validate the response data
@@ -132,7 +132,7 @@ export async function getPriceRange(priceRangeId: string) {
     const data = response.data;
 
     if (!data) {
-      throw new ExternalApiError("No price range found in the response");
+      throw new CustomApiError("No price range found in the response");
     }
 
     // Validate the response data
@@ -216,10 +216,10 @@ class ParseError extends Error {
 /**
  * Custom error class for external API errors.
  */
-class ExternalApiError extends Error {
+class CustomApiError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = "ExternalApiError";
+    this.name = "CustomApiError";
   }
 }
 
@@ -227,7 +227,7 @@ class ExternalApiError extends Error {
  * Handle the errors from the API calls.
  */
 function handleError<TData>(
-  error: AxiosError | ParseError | unknown,
+  error: AxiosError | ParseError | CustomApiError | unknown,
   returnData: TData,
 ) {
   // ! This is a placeholder for error handling.
@@ -244,13 +244,13 @@ function handleError<TData>(
 
   if (axios.isAxiosError(error) && error.response?.status === 404) {
     // This should be updaed to handle more errors
-    // Could be combimed with the ExternalApiError below
+    // Could be combimed with the CustomApiError below
     console.error("API endpoint not found:", error.message);
     throw new Error("Not found");
   }
 
-  if (error instanceof ExternalApiError) {
-    console.error("External API error:", error.message);
+  if (error instanceof CustomApiError) {
+    console.error("Custom API error:", error.message);
     // Handle specific external API errors here
   } else {
     console.error("Unexpected error:", error);
